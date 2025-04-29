@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "micro_machines/proto";
+
+service MachineService {
+  rpc StartMachine (StartMachineRequest) returns (MachineResponse);
+  rpc StopMachine (StopMachineRequest) returns (StopMachineResponse);
+  rpc CloneMachine (CloneMachineRequest) returns (MachineResponse);
+  rpc ListMachines (ListMachinesRequest) returns (ListMachinesResponse);
+}
+
+message StartMachineRequest {
+  string id = 1;
+  string host = 2;
+}
+
+message StopMachineRequest {
+  string id = 1;
+}
+
+message CloneMachineRequest {
+  string old_id = 1;
+  string new_id = 2;
+  string new_host = 3;
+}
+
+message ListMachinesRequest {}
+
+message MachineResponse {
+  string id = 1;
+  string host = 2;
+  bool running = 3;
+  string started = 4;
+}
+
+message StopMachineResponse {
+  bool success = 1;
+}
+
+message ListMachinesResponse {
+  repeated MachineResponse machines = 1;
+}
